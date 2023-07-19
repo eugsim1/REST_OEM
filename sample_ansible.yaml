@@ -1,0 +1,19 @@
+---
+- name : Using a REST API
+  connection: local
+  hosts: localhost
+  vars_files:
+   - defaults_oem.yaml
+  tasks:
+
+    - name: Get Named Credentials
+      uri:
+       url: "{{ oem_url }}/api/namedCredentials"
+       method: GET
+       return_content: yes
+       force_basic_auth: yes
+       validate_certs: no
+       headers:
+         Authorization: Basic "{{ basic_auth }}"
+         Content-Type: application/json
+      register: result
